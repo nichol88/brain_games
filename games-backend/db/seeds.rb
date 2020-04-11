@@ -8,4 +8,18 @@
 
 nback = Game.create(title: 'Dual n-Back')
 
-assets = nback.assets.build(type: 'audio', file_path: '/path')
+letter = 'a'
+
+26.times do
+  nback.assets.build(file_type: 'audio', file_path: "/sounds/#{letter}.wav", name: letter).save
+  letter = letter.succ
+end
+letter = 'a'
+player = Player.create(username: 'SolidSnake')
+
+trial_1 = nback.trials.build(player: player, max_turns: 24).save
+
+24.times do
+  trial_1.turns.build(grid_position: (rand(8)+1), asset: Asset.find_by(name: letter)).save
+  letter = letter.succ
+end

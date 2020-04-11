@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_042350) do
+ActiveRecord::Schema.define(version: 2020_04_11_073449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(version: 2020_04_11_042350) do
     t.integer "trial_id"
     t.integer "player_id"
     t.integer "grid_position"
-    t.integer "audio_element_id"
+    t.integer "asset_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "user_selected_position"
+    t.boolean "user_selected_audio"
   end
 
 end
