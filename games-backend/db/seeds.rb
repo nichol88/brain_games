@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+nback = Game.create(title: 'Dual n-Back')
+
+assets = nback.assets.build(type: 'audio', file_path: '/path')

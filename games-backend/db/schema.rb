@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_172041) do
+ActiveRecord::Schema.define(version: 2020_04_11_042350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assets", force: :cascade do |t|
-    t.string "type"
+    t.string "file_type"
     t.string "file_path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.integer "game_id"
   end
 
   create_table "games", force: :cascade do |t|
