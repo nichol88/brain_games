@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :turns
 
-  resources :trials, shallow: true do
+  resources :trials do
     resources :turns
   end
 
