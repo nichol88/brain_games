@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_064155) do
+ActiveRecord::Schema.define(version: 2020_04_14_100010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 2020_04_14_064155) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "user_selected_position"
     t.boolean "user_selected_audio"
+    t.boolean "correct_audio_guess"
+    t.boolean "correct_position_guess"
   end
 
 end
