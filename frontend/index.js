@@ -104,23 +104,26 @@ function takeTurn(turnObject, gridCells) {
 
 function endGame() {
 
-  //Turn.analyzeAll(n_number)
-
-  const score = Trial.all[0].calculateScore()
-
   // Display results to user
+  displayScoreModal()
+
+  // Allow user to save name?
+
+  // re-enable start game button
+  document.getElementById('start_game').disabled = false
+
+  // clear Trial and Turns
+  Turn.all = []
+  Trial.all = []
+}
+
+function displayScoreModal() {
+  const score = Trial.all[0].calculateScore()
   const scoreModal = document.getElementById('score-modal')
   const scoreDisplay = document.getElementById('score-display')
   scoreDisplay.innerText = `${score}%`
   scoreModal.style.display = 'block'
   let span = document.getElementsByClassName("close")[1];
-
-  // if score is high enough, increase level by
-  // altering n_number span
-  if (score > 0.8) {
-    document.getElementById('start_game').innerText = 'Next Level!'
-    increaseLevel()
-  }
 
   span.onclick = function() {
     scoreModal.style.display = "none";
@@ -130,16 +133,15 @@ function endGame() {
       scoreModal.style.display = "none";
     }
   }
-
-  // Allow user to save?
-
-  // re-enable start game button
-  document.getElementById('start_game').disabled = false
-
-  // clear Trial and Turns
-  Turn.all = []
-  Trial.all = []
-
+  // increase level if score is high enough
+  const startGameButton = document.getElementById('start_game')
+  if (score > 80) {
+    startGameButton.innerText = 'Next Level!'
+    startGameButton.classList.add('w3-green')
+    increaseLevel()
+  } else {
+    startGameButton.innerText = 'Try Again'
+  }
 }
 
 function increaseLevel() {
@@ -235,7 +237,8 @@ function pressButtonAnimation(button) {
 function addStartGameButton() {
   const btn = document.getElementById('start_game')
   btn.addEventListener('click', (e) => {
-    console.log("Click -> Start Game")
+    //console.log("Click -> Start Game")
+    btn.classList.remove('w3-green')
     document.getElementById('score-display').innerText = ''
     let n = document.getElementById('n_number')
     if (n.innerText === 'n') {
