@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Game Loop
-function startGameLoop() {
+function startGameLoop(n_number) {
 
-  createTrial()
+  createTrial(n_number)
 
   document.addEventListener('keydown', (e) => {
     // if key is a game key
@@ -63,22 +63,66 @@ function takeTurn(turnObject, gridCells) {
   turnObject.startTime = Date.now()
   //console.log(turnObject.startTime)
   if (turnNum === 24) {
-    endGame()
+    setTimeout(function() {
+      endGame()
+    }, 3200)
   }
 }
 
 function endGame() {
-  // Display results to user
-  // Allow user to save?
-  // Push Turns with selections to server
-  // clear Trial and Turns
 
+  //Turn.analyzeAll(n_number)
+
+  const score = Trial.all[0].calculateScore()
+
+  // Display results to user
+  const scoreModal = document.getElementById('score-modal')
+  const scoreDisplay = document.getElementById('score-display')
+  scoreDisplay.innerText = `${score}%`
+  scoreModal.style.display = 'block'
+  let span = document.getElementsByClassName("close")[1];
+
+  // if score is high enough, increase level by
+  // altering n_number span
+  if (score > 0.8) {
+    document.getElementById('start_game').innerText = 'Next Level!'
+    increaseLevel()
+  }
+
+  span.onclick = function() {
+    scoreModal.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == scoreModal) {
+      scoreModal.style.display = "none";
+    }
+  }
+
+  // Allow user to save?
+
+  // re-enable start game button
+  document.getElementById('start_game').disabled = false
+
+  // clear Trial and Turns
+  Turn.all = []
+  Trial.all = []
+
+}
+
+function increaseLevel() {
+  const e = document.getElementById('n_number')
+  const old = e.innerText
+  if (old === 'n') {
+    e.innerText = 1
+  } else {
+    e.innerText = parseInt(old) + 1
+  }
 }
 
 function incrementTurnCounter() {
   const counter = document.querySelector('#turn-counter')
   counter.innerText = parseInt(counter.innerText) + 1
-  return counter.innerText
+  return parseInt(counter.innerText)
 }
 
 function resetTurnCounter() {
@@ -99,11 +143,11 @@ function toggleDisplay(element, turnId) {
 }
 
 // POST new Trial, populate turns
-async function createTrial() {
+async function createTrial(n_number) {
   const configObject = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({game_id: 1 , max_turns: 24})
+    body: JSON.stringify({game_id: 1 , max_turns: 24, n_number: n_number})
   }
   let response = await fetch('http://localhost:3000/trials', configObject)
   let trial = await response.json()
@@ -126,23 +170,18 @@ async function loadTurns(trialId) {
 // Add the modal
 function applyModal() {
   let modal = document.getElementById("myModal");
-
   // Get the button that opens the modal
   let btn = document.getElementById("myBtn");
-
   // Get the <span> element that closes the modal
   let span = document.getElementsByClassName("close")[0];
-
   // When the user clicks on the button, open the modal
   btn.onclick = function() {
     modal.style.display = "block";
   }
-
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
   }
-
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
@@ -152,12 +191,26 @@ function applyModal() {
 
 }
 
+function pressButtonAnimation(button) {
+  button.classList.add('w3-black')
+  setTimeout(function() {
+    button.classList.remove('w3-black')
+  }, 100)
+}
+
 // attach functino to start game button
 function addStartGameButton() {
   const btn = document.getElementById('start_game')
   btn.addEventListener('click', (e) => {
     console.log("Click -> Start Game")
-    startGameLoop()
+    document.getElementById('score-display').innerText = ''
+    let n = document.getElementById('n_number')
+    if (n.innerText === 'n') {
+      n.innerText = 1
+      startGameLoop(1)
+    } else {
+      startGameLoop(parseInt(n.innerText))
+    }
     btn.disabled = true
   })
 }
