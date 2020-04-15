@@ -6,7 +6,7 @@ class TrialsController < ApplicationController
 
   def show
     trial = Trial.find(params[:id])
-    render json: trial
+    render json: {trial: trial, turns: trial.turns}
   end
 
   def create
