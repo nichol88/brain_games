@@ -1,7 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
   applyModal()
   addStartGameButton()
+  loadAudioAssets()
 })
+
+// fetch game assets and add to DOM
+function loadAudioAssets() {
+  // get assets needed for each turn
+  // const ids = Turn.all.map((turn) => {
+  //   return turn.asset_id
+  // });
+  // const uniqueIds = ids.filter((id, i, array) => { array.indexOf(id === i) })
+  // console.log(`assets needed: ${uniqueIds}`)
+  const audioContainer = document.getElementById('audio-container')
+  // get all assets needed for game
+  fetch(`http://localhost:3000/games/1/assets`)
+    .then(resp => resp.json())
+    .then(obj => {
+      obj.forEach((assetData) => {
+        const a = new Asset(assetData)
+        // load into DOM
+        a.addToDOM(audioContainer)
+      });
+    })
+}
 
 // Game Loop
 function startGameLoop(n_number) {
@@ -45,7 +67,6 @@ function startGameLoop(n_number) {
 }
 
 function mainLoop() {
-  console.log('main game loop')
 
   resetTurnCounter()
 
@@ -61,9 +82,19 @@ function mainLoop() {
 
 function takeTurn(turnObject, gridCells) {
   const turnNum = incrementTurnCounter()
+
+  // turn actions: display grid element, play sound
+  // display grid cell:
   toggleDisplay(gridCells[turnObject.grid_position], turnObject.id)
-  turnObject.startTime = Date.now()
-  //console.log(turnObject.startTime)
+  // play audio:
+  const audioElement = document.getElementById(`audio-${turnObject.asset_id}`)
+  audioElement.play()
+  // this fixes overlapping audio bug when the same audio occurs
+  // twice in a row
+  setTimeout(function(){
+    audioElement.load()
+  }, 2000)
+
   if (turnNum === 24) {
     setTimeout(function() {
       endGame()
