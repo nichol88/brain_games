@@ -8,4 +8,15 @@ class AssetsController < ApplicationController
     end
     render json: assets.to_json(:except => [:updated_at, :created_at])
   end
+
+  def show
+    set_asset
+    render json: @asset
+  end
+
+  private
+
+  def set_asset
+    @asset = Asset.find(params[:id])
+  end
 end
