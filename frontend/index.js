@@ -27,11 +27,13 @@ function startGameLoop(n_number) {
           case 'a':
             //console.log('selected audio match')
             turn.user_selected_audio = true
+            pressButtonAnimation(document.getElementById('a-btn'))
             //console.log('updated turn.user_selected_audio => ' + turn.user_selected_audio)
             break;
           case 'l':
             //console.log('selected position match')
             turn.user_selected_position = true
+            pressButtonAnimation(document.getElementById('l-btn'))
             //console.log('updated turn.user_selected_position => ' + turn.user_selected_position)
             break;
         }
