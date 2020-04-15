@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Dual n-Back Instructions
 
-Things you may want to cover:
+The 'Dual' in Dual n-Back stands for two stimuli.
 
-* Ruby version
+Each turn, you will hear a sound and see a position on the grid light up.
 
-* System dependencies
+The test begins at "1-back", i.e. "one turn ago".
 
-* Configuration
+When either stimulus is the same as "1-back" (one turn ago), press the corresponding key:
 
-* Database creation
+* A for audio match
+* L for position match
 
-* Database initialization
+**n** will increase as you get better. Good luck!
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[More Info on Wikipedia](https://en.wikipedia.org/wiki/N-back)
