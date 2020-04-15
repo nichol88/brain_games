@@ -36,7 +36,7 @@ class Turn {
   }
 
   // returns Turn n-Back from self
-  // returns false if from different trial or not found
+  // or false if from different trial / not found
   nBack(n_number) {
     const q = Turn.all.find(turn => turn.id === this.id - n_number)
     // make sure it's in the same trial
@@ -50,46 +50,47 @@ class Turn {
 
   // logs if user guessed correctly on a turn
   // by adding this.correct_x_guess = true/false
-  analyzeChoices(n_number) {
-    // first, check if user SHOULD have made a choice
-    if (this.trueMatch(n_number, 'grid_position')) {
-      // if so, see if user DID make a choice
-      if (this.user_selected_position === true) {
-        // if so, log correct choice
-        this.correct_position_guess = true
-      } else {
-        // if not, log incorrect choice
-        this.correct_position_guess = false
-      }
-    } else if (this.user_selected_position === true && this.trueMatch(n_number, 'grid_position')) {
-      // no true match, but user guessed incorrectly
-      this.correct_position_guess = false
-    }
+  // analyzeChoices(n_number) {
+  //   // first, check if user SHOULD have made a choice
+  //   if (this.trueMatch(n_number, 'grid_position')) {
+  //     // if so, see if user DID make a choice
+  //     if (this.user_selected_position === true) {
+  //       // if so, log correct choice
+  //       this.correct_position_guess = true
+  //     } else {
+  //       // if not, log incorrect choice
+  //       this.correct_position_guess = false
+  //     }
+  //   } else if (this.user_selected_position === true && this.trueMatch(n_number, 'grid_position')) {
+  //     // no true match, but user guessed incorrectly
+  //     this.correct_position_guess = false
+  //   }
+  //
+  //
+  //   // do the same for audio choice
+  //   if (this.trueMatch(n_number, 'asset_id')) {
+  //     if (this.user_selected_audio === true) {
+  //       this.correct_audio_guess = true
+  //     } else {
+  //       this.correct_audio_guess = false
+  //     }
+  //   } else if (this.user_selected_audio === true) {
+  //     // no true match, but user guessed incorrectly
+  //     this.correct_audio_guess = false
+  //   }
+  //
+  // }
 
+  // // process all turns and update server
+  // static analyzeAll(n_number) {
+  //   Turn.all.forEach((turn) => {
+  //     turn.analyzeChoices(n_number)
+  //     turn.update()
+  //   });
+  // }
 
-    // do the same for audio choice
-    if (this.trueMatch(n_number, 'asset_id')) {
-      if (this.user_selected_audio === true) {
-        this.correct_audio_guess = true
-      } else {
-        this.correct_audio_guess = false
-      }
-    } else if (this.user_selected_audio === true) {
-      // no true match, but user guessed incorrectly
-      this.correct_audio_guess = false
-    }
-
-  }
-
-  // process all turns and update server
-  static analyzeAll(n_number) {
-    Turn.all.forEach((turn) => {
-      turn.analyzeChoices(n_number)
-      turn.update()
-    });
-  }
-
-  // return true if matches with given n_number
+  // return true or false depending on
+  // attribute match with given n_number
   trueMatch(n_number, attributeString) {
     if (this.nBack(n_number)[`${attributeString}`] === this[`${attributeString}`]) {
       console.log(`this turn's (${this.id}) ${attributeString} matches turn ${this.nBack(n_number).id}`)
