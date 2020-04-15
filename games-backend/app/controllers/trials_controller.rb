@@ -18,6 +18,6 @@ class TrialsController < ApplicationController
   private
 
   def trial_params
-    params.require(:trial).permit(:game_id, :player_id, :max_turns)
+    params.require(:trial).permit(:game_id, :player_id, :max_turns, :n_number, :score)
   end
 end
