@@ -9,7 +9,6 @@
   </head>
   <body>
     <div id="myModal" class="modal">
-      <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>
         <h1>Instructions</h1>
@@ -26,10 +25,18 @@
       </div>
     </div>
 
+    <div id="score-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Score:</h1>
+        <h2 id="score-display"></h2>
+      </div>
+    </div>
+
     <div class="game">
 
       <div class="side-bar">
-        <h1>Dual <span><em>n</em></span>-Back</h1>
+        <h1>Dual <span id="n_number"><em>n</em></span>-Back</h1>
         <div class="buttons">
         <button class="w3-btn w3-bar w3-black w3-border" id="myBtn">View Instructions</button>
         <br>
@@ -39,8 +46,8 @@
       <div class="turn-number">
         <br>
         <h1><span id="turn-counter">0</span>/24</h1>
-        <button class="w3-button w3-border w3-bar" type="button">A: Audio Match</button> <br> <br>
-        <button class="w3-button w3-border w3-bar" type="button">L: Position Match</button>
+        <button id="a-btn" class="w3-button w3-border w3-bar" type="button">A: Audio Match</button> <br> <br>
+        <button id="l-btn" class="w3-button w3-border w3-bar" type="button">L: Position Match</button>
       </div>
     </div> <!-- sidebar -->
 
