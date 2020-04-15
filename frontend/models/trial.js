@@ -25,22 +25,41 @@ class Trial {
     let totalScore = 0
 
     Turn.all.forEach((turn) => {
-      // if match, add to maxScorePossible
-      if (turn.trueMatch(this.n_number, 'grid_position')) {
+      // if position match, add to maxScorePossible
+      if (turn.trueMatch(this.n_number, 'grid_position') === true) {
         maxScorePossible += 1
-        console.log(`turn ${turn.id} has true match, total possible: ${maxScorePossible}`)
-        console.log(turn)
-        console.log('did user guess match?')
-        console.log(turn.user_selected_position)
-        console.log(turn.user_selected_position === true)
+        // console.log(`turn ${turn.id} has true match, total possible: ${maxScorePossible}`)
+        // console.log(turn)
+        // console.log('did user guess match?')
+        // console.log(turn.user_selected_position)
+        // console.log(turn.user_selected_position === true)
         if (turn.user_selected_position === true) {
-          console.log('this turn has correct position guess')
+          // console.log('this turn has correct position guess')
           totalScore += 1
         } else if (turn.user_selected_position === false) {
-          console.log('this turn has incorrect position guess')
+          // console.log('this turn has incorrect position guess')
+          totalScore -= 0.5
+        }
+      } else {
+        if (turn.user_selected_position === true) {
           totalScore -= 0.5
         }
       }
+
+      //same for audio match
+      if (turn.trueMatch(this.n_number, 'asset_id') === true) {
+        maxScorePossible += 1
+        if (turn.user_selected_audio === true) {
+          totalScore += 1
+        } else if (turn.user_selected_audio === false) {
+          totalScore -= 0.5
+        }
+      } else {
+        if (turn.user_selected_position === true) {
+          totalScore -= 0.5
+        }
+      }
+
 
       // if (turn.trueMatch(this.n_number, 'asset_id')) {
       //   possibleAudioMatches.push(turn)
