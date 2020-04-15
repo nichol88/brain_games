@@ -15,4 +15,5 @@ class Trial < ApplicationRecord
     end
     turns
   end
+
 end
