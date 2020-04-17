@@ -1,5 +1,5 @@
 const API = {
-  baseUrl: 'http://localhost:3000'
+  baseUrl: 'https://brians-brain-games.herokuapp.com/'
 }
 
 const COOKIE = document.cookie
@@ -106,6 +106,7 @@ function endGame() {
 
   // re-enable start game button
   document.getElementById('start_game').disabled = false
+
 
   Trial.all[0].update()
   Turn.all = []
