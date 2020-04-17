@@ -2,14 +2,13 @@ class Trial {
   static all = []
 
   constructor(data) {
-    // console.log('creating new trial')
-    // console.log('input data keys: ' + Object.keys(data))
-    // console.log('input data vals: ' + Object.values(data))
+
     this.id = data.id
     this.maxTurns = data.max_turns
     this.game_id = data.game_id
     this.player_id = data.player_id
     this.n_number = data.n_number
+    this.score = 0
     this.save()
   }
 
@@ -25,13 +24,15 @@ class Trial {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        score: this.calculateScore(),
+        score: this.score,
         n_number: this.n_number
       })
     }
-    fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
+    return fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
       .then(resp => resp.json())
-      .then(obj => console.log(`updated: ${obj}`))
+      .then(obj => {
+          //console.log(`updated: ${obj}`)
+        })
   }
 
   calculateScore() {
@@ -73,7 +74,8 @@ class Trial {
       }
 
     });
-
-    return Math.round((totalScore / maxScorePossible) * 100)
+    const finalScore = Math.round((totalScore / maxScorePossible) * 100)
+    this.score = finalScore
+    return finalScore
   }
 }
