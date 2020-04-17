@@ -5,8 +5,8 @@ class TrialsController < ApplicationController
   end
 
   def show
-    trial = Trial.find(params[:id])
-    render json: {trial: trial, turns: trial.turns}
+    set_trial
+    render json: {trial: @trial, turns: @trial.turns}
   end
 
   def create
@@ -15,7 +15,15 @@ class TrialsController < ApplicationController
     render json: trial
   end
 
+  def update
+    @trial.update(trial_params)
+  end
+
   private
+
+  def set_trial
+    @trial = Trial.find(params[:id])
+  end
 
   def trial_params
     params.require(:trial).permit(:game_id, :player_id, :max_turns, :n_number, :score)
