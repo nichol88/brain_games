@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./public/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
 
@@ -44,19 +44,37 @@
       <input class="w3-bar w3-input" type="text" name="player[username]" placeholder="username"> <br>
       <input class="w3-bar w3-input w3-button w3-light-gray" type="submit" name="submit" value="Submit Score"> <br>
       <button class="w3-bar w3-input w3-button w3-light-gray">View High Scores</button>
-    </div>  --> <!--user-input-->
+    </div>
+    -->
     <div class="buttons">
-    <button class="w3-btn w3-bar w3-black w3-border" id="myBtn">View Instructions</button>
-    <br>
-    <button class="w3-btn w3-bar w3-black w3-border" id="start_game">Start Game</button>
-  </div> <!-- buttons -->
+      <button class="w3-btn w3-bar w3-black w3-border" id="myBtn">
+        View Instructions
+      </button>
+
+      <br>
+
+      <button class="w3-btn w3-bar w3-black w3-border" id="start_game">
+        Start Game
+      </button>
+    </div> <!-- buttons -->
 
   <div class="turn-number">
     <br>
+
     <h1><span id="turn-counter">0</span>/24</h1>
-    <button id="a-btn" class="w3-button w3-border w3-bar" type="button">A: Audio Match</button> <br> <br>
-    <button id="l-btn" class="w3-button w3-border w3-bar" type="button">L: Position Match</button>
-  </div>
+
+    <button id="a-btn" class="w3-button w3-border w3-bar" type="button">
+      A: Audio Match
+    </button>
+
+     <br> <br>
+
+    <button id="l-btn" class="w3-button w3-border w3-bar" type="button">
+      L: Position Match
+    </button>
+
+  </div> <!-- turn-number -->
+
 </div> <!-- sidebar -->
 
   <div class="wrap">
@@ -77,10 +95,11 @@
 
 </div> <!-- game -->
 
-<script type="text/javascript" src="index.js"       ></script>
-<script type="text/javascript" src="models/trial.js"></script>
-<script type="text/javascript" src="models/turn.js" ></script>
-<script type="text/javascript" src="models/asset.js"></script>
+
+<script type="text/javascript" src="js/index.js"       ></script>
+<script type="text/javascript" src="js/models/trial.js"></script>
+<script type="text/javascript" src="js/models/turn.js" ></script>
+<script type="text/javascript" src="js/models/asset.js"></script>
 
 </body>
 
