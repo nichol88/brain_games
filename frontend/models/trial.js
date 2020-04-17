@@ -17,31 +17,43 @@ class Trial {
     Trial.all.push(this)
   }
 
+  update() {
+    const configObject = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        score: this.calculateScore(),
+        n_number: this.n_number
+      })
+    }
+    fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
+      .then(resp => resp.json())
+      .then(obj => console.log(`updated: ${obj}`))
+  }
+
   calculateScore() {
-    // get num of possible correct choices
+
     let maxScorePossible = 0
-    // let possiblePositionMatches = []
-    // let possibleAudioMatches = []
     let totalScore = 0
 
     Turn.all.forEach((turn) => {
-      // if position match, add to maxScorePossible
+      // check to see if the attribute is a match
       if (turn.trueMatch(this.n_number, 'grid_position') === true) {
+        // if so, log this as a possible correct choice. Also,
         maxScorePossible += 1
-        // console.log(`turn ${turn.id} has true match, total possible: ${maxScorePossible}`)
-        // console.log(turn)
-        // console.log('did user guess match?')
-        // console.log(turn.user_selected_position)
-        // console.log(turn.user_selected_position === true)
+        // if user selected position match for this turn,
         if (turn.user_selected_position === true) {
-          // console.log('this turn has correct position guess')
-          totalScore += 1
+          totalScore += 1 // log this as a correct user choice
         } else if (turn.user_selected_position === false) {
-          // console.log('this turn has incorrect position guess')
-          totalScore -= 0.5
+          totalScore -= 0.5 // user did not select, and missed the choice
         }
       } else {
+        // turn is not a trueMatch,
         if (turn.user_selected_position === true) {
+          // but player thought it was :( 0.5 POINTS FROM GRYFFINDOR!!!
           totalScore -= 0.5
         }
       }
@@ -60,25 +72,7 @@ class Trial {
         }
       }
 
-
-      // if (turn.trueMatch(this.n_number, 'asset_id')) {
-      //   possibleAudioMatches.push(turn)
-      // }
     });
-
-    // possiblePositionMatches.forEach((turn) => {
-    //   if (turn.user_selected_position === true) {
-    //     totalScore += 1
-    //   }
-    // });
-
-    // possibleAudioMatches.forEach((turn) => {
-    //   if (turn.user_selected_audio === true) {
-    //     totalScore += 1
-    //   }
-    // });
-
-    // let totalScorePossible = possibleAudioMatches.length + possiblePositionMatches.length
 
     return Math.round((totalScore / maxScorePossible) * 100)
   }
