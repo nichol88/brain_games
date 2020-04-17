@@ -104,12 +104,10 @@ function endGame() {
   // Display results to user
   displayScoreModal()
 
-  // Allow user to save name?
-
   // re-enable start game button
   document.getElementById('start_game').disabled = false
 
-  // clear Trial and Turns
+  Trial.all[0].update()
   Turn.all = []
   Trial.all = []
 }
@@ -148,6 +146,7 @@ function increaseLevel() {
     e.innerText = 1
   } else {
     e.innerText = parseInt(old) + 1
+    Trial.all[0].n_number = parseInt(old) + 1
   }
 }
 
