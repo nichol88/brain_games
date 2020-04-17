@@ -6,7 +6,7 @@ class TrialsController < ApplicationController
 
   def show
     set_trial
-    render json: {trial: @trial, turns: @trial.turns}
+    render json: @trial
   end
 
   def create
@@ -16,9 +16,9 @@ class TrialsController < ApplicationController
   end
 
   def update
-    binding.pry
     set_trial
     @trial.update(trial_params)
+    render json: @trial
   end
 
   private
