@@ -20,19 +20,17 @@ class Trial {
     const configObject = {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
+      body: JSON.stringify( {
         score: this.score,
         n_number: this.n_number
       })
     }
-    return fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
+
+    fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
       .then(resp => resp.json())
-      .then(obj => {
-          //console.log(`updated: ${obj}`)
-        })
+      .then(obj => resolve(obj))
   }
 
   calculateScore() {

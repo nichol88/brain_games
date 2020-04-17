@@ -1,5 +1,5 @@
 const API = {
-  baseUrl: 'https://brians-brain-games.herokuapp.com/'
+  baseUrl: 'http://localhost:3000'//'https://brians-brain-games.herokuapp.com/'
 }
 
 const COOKIE = document.cookie
@@ -44,7 +44,7 @@ function startGameLoop(n_number) {
       if (activeElement) {
         const turnId = parseInt(activeElement.getAttribute('id'))
         const turn = Turn.all.find(item => item.id === turnId)
-
+        console.log(turn)
         switch (e.key) {
           case 'a':
             turn.user_selected_audio = true
@@ -109,12 +109,13 @@ function endGame() {
 
 
   Trial.all[0].update()
-  Turn.all = []
-  Trial.all = []
+//  Turn.all = []
+//  Trial.all = []
 }
 
 function displayScoreModal() {
   const score = Trial.all[0].calculateScore()
+  Trial.all[0].score = score
   const scoreModal = document.getElementById('score-modal')
   const scoreDisplay = document.getElementById('score-display')
   scoreDisplay.innerText = `${score}%`
