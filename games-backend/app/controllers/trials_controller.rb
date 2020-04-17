@@ -16,6 +16,7 @@ class TrialsController < ApplicationController
   end
 
   def update
+    binding.pry
     set_trial
     @trial.update(trial_params)
   end
