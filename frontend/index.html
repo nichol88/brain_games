@@ -7,71 +7,81 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
-  <body>
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1>Instructions</h1>
-        <p>The 'Dual' in Dual n-Back stands for two stimuli.</p>
-        <p>Each turn, you will <em>hear</em> a sound and <em>see</em> a position on the grid light up.</p>
-        <p>The test begins at "1-back", i.e. "one turn ago".</p>
-        <p>When either stimulus is the same as "1-back" (one turn ago), press the corresponding key:</p>
-        <ul>
-          <li>A for audio match</li>
-          <li>L for position match</li>
-        </ul>
-        <p><em>n</em> will increase as you get better. Good luck!</p>
-        <p><a href="https://en.wikipedia.org/wiki/N-back" target="_blank">More info on Wikipedia</a></p>
-      </div>
-    </div>
 
-    <div id="score-modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h1>Score:</h1>
-        <h2 id="score-display"></h2>
-      </div>
-    </div>
+<body>
 
-    <div class="game">
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h1>Instructions</h1>
+    <p>The 'Dual' in Dual n-Back stands for two stimuli.</p>
+    <p>Each turn, you will <em>hear</em> a sound and <em>see</em> a position on the grid light up.</p>
+    <p>The test begins at "1-back", i.e. "one turn ago".</p>
+    <p>When either stimulus is the same as "1-back" (one turn ago), press the corresponding key:</p>
+    <ul>
+      <li>A for audio match</li>
+      <li>L for position match</li>
+    </ul>
+    <p><em>n</em> will increase as you get better. Good luck!</p>
+    <p><a href="https://en.wikipedia.org/wiki/N-back" target="_blank">More info on Wikipedia</a></p>
+  </div>
+</div>
 
-      <div class="side-bar">
-        <h1>Dual <span id="n_number"><em>n</em></span>-Back</h1>
-        <div class="buttons">
-        <button class="w3-btn w3-bar w3-black w3-border" id="myBtn">View Instructions</button>
-        <br>
-        <button class="w3-btn w3-bar w3-black w3-border" id="start_game">Start Game</button>
-      </div> <!-- buttons -->
+<div id="score-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h1>Score:</h1>
+    <h2 id="score-display"></h2>
+  </div>
+</div>
 
-      <div class="turn-number">
-        <br>
-        <h1><span id="turn-counter">0</span>/24</h1>
-        <button id="a-btn" class="w3-button w3-border w3-bar" type="button">A: Audio Match</button> <br> <br>
-        <button id="l-btn" class="w3-button w3-border w3-bar" type="button">L: Position Match</button>
-      </div>
-    </div> <!-- sidebar -->
+<div class="game">
 
-      <div class="wrap">
-        <div class="grid">
-          <div class="grid__item" id="upper_left"  ></div>
-          <div class="grid__item" id="upper_middle"></div>
-          <div class="grid__item" id="upper_right" ></div>
-          <div class="grid__item" id="middle_left" ></div>
-          <div class="grid__item" id="middle"      ></div>
-          <div class="grid__item" id="middle_right"></div>
-          <div class="grid__item" id="lower_left"  ></div>
-          <div class="grid__item" id="lower_middle"></div>
-          <div class="grid__item" id="lower_right" ></div>
-        </div> <!-- grid -->
-      </div> <!-- wrap -->
+  <div class="side-bar">
+    <h1>Dual <span id="n_number"><em>n</em></span>-Back</h1>
+    <!-- User input section
+    <div class="user-input">
+      <input class="w3-bar w3-input" type="text" name="player[username]" placeholder="username"> <br>
+      <input class="w3-bar w3-input w3-button w3-light-gray" type="submit" name="submit" value="Submit Score"> <br>
+      <button class="w3-bar w3-input w3-button w3-light-gray">View High Scores</button>
+    </div>  --> <!--user-input-->
+    <div class="buttons">
+    <button class="w3-btn w3-bar w3-black w3-border" id="myBtn">View Instructions</button>
+    <br>
+    <button class="w3-btn w3-bar w3-black w3-border" id="start_game">Start Game</button>
+  </div> <!-- buttons -->
 
-      <div id="audio-container" style="display: none"></div><!-- audio container -->
+  <div class="turn-number">
+    <br>
+    <h1><span id="turn-counter">0</span>/24</h1>
+    <button id="a-btn" class="w3-button w3-border w3-bar" type="button">A: Audio Match</button> <br> <br>
+    <button id="l-btn" class="w3-button w3-border w3-bar" type="button">L: Position Match</button>
+  </div>
+</div> <!-- sidebar -->
 
-    </div> <!-- game -->
+  <div class="wrap">
+    <div class="grid">
+      <div class="grid__item" id="upper_left"  ></div>
+      <div class="grid__item" id="upper_middle"></div>
+      <div class="grid__item" id="upper_right" ></div>
+      <div class="grid__item" id="middle_left" ></div>
+      <div class="grid__item" id="middle"      ></div>
+      <div class="grid__item" id="middle_right"></div>
+      <div class="grid__item" id="lower_left"  ></div>
+      <div class="grid__item" id="lower_middle"></div>
+      <div class="grid__item" id="lower_right" ></div>
+    </div> <!-- grid -->
+  </div> <!-- wrap -->
 
-    <script type="text/javascript" src="index.js"></script>
-    <script type="text/javascript" src="models/trial.js"></script>
-    <script type="text/javascript" src="models/turn.js"></script>
-    <script type="text/javascript" src="models/asset.js"></script>
-  </body>
+  <div id="audio-container" style="display: none"></div><!-- audio container -->
+
+</div> <!-- game -->
+
+<script type="text/javascript" src="index.js"       ></script>
+<script type="text/javascript" src="models/trial.js"></script>
+<script type="text/javascript" src="models/turn.js" ></script>
+<script type="text/javascript" src="models/asset.js"></script>
+
+</body>
+
 </html>
