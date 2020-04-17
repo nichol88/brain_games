@@ -20,7 +20,8 @@ class Trial {
     const configObject = {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify( {
         score: this.score,
@@ -28,9 +29,13 @@ class Trial {
       })
     }
 
-    fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
-      .then(resp => resp.json())
-      .then(obj => resolve(obj))
+    return fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
+      .then(resp => resp)
+      //.then(obj => obj)
+      .then(function(response) {
+        console.info('fetch()', response);
+        return response;
+      });
   }
 
   calculateScore() {
