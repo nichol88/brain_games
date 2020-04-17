@@ -30,7 +30,7 @@ class Turn {
         user_selected_position: this.user_selected_position
       })
     }
-    fetch(`http://localhost:3000/turns/${this.id}`, configObject)
+    fetch(`${API.baseUrl}/turns/${this.id}`, configObject)
       .then(resp => resp.json())
       .then(obj => console.log(`turn ${this.id} updated (${obj.id})`))
   }
