@@ -1,3 +1,13 @@
+const API = {
+  baseUrl: 'http://localhost:3000'
+}
+
+const COOKIE = document.cookie
+//"username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/"
+
+const GAME_SPEED = 3200
+
+
 document.addEventListener('DOMContentLoaded', () => {
   applyModal()
   addStartGameButton()
@@ -6,15 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // fetch game assets and add to DOM
 function loadAudioAssets() {
-  // get assets needed for each turn
-  // const ids = Turn.all.map((turn) => {
-  //   return turn.asset_id
-  // });
-  // const uniqueIds = ids.filter((id, i, array) => { array.indexOf(id === i) })
-  // console.log(`assets needed: ${uniqueIds}`)
+
   const audioContainer = document.getElementById('audio-container')
   // get all assets needed for game
-  fetch(`http://localhost:3000/games/1/assets`)
+  fetch(`${API.baseUrl}/games/1/assets`)
     .then(resp => resp.json())
     .then(obj => {
       obj.forEach((assetData) => {
@@ -31,32 +36,23 @@ function startGameLoop(n_number) {
   createTrial(n_number)
 
   document.addEventListener('keydown', (e) => {
-    // if key is a game key
+    // if key is a valid game key
     if (e.key === 'l' || e.key === 'a'){
-      // console.log(e.key)
-      // get the active element (cell)
+      // get the active element (grid cell)
       const activeElement = document.querySelector('.active')
-      // console.log('grabbing element: ' + activeElement.id)
-      // based on which key,
       // save choice to turn based on ID of active element
       if (activeElement) {
         const turnId = parseInt(activeElement.getAttribute('id'))
-        //console.log('get turn with id: ' + turnId)
         const turn = Turn.all.find(item => item.id === turnId)
-        //console.log(turn)
 
         switch (e.key) {
           case 'a':
-            //console.log('selected audio match')
             turn.user_selected_audio = true
             pressButtonAnimation(document.getElementById('a-btn'))
-            //console.log('updated turn.user_selected_audio => ' + turn.user_selected_audio)
             break;
           case 'l':
-            //console.log('selected position match')
             turn.user_selected_position = true
             pressButtonAnimation(document.getElementById('l-btn'))
-            //console.log('updated turn.user_selected_position => ' + turn.user_selected_position)
             break;
         }
       }
@@ -76,7 +72,7 @@ function mainLoop() {
   turns.forEach((turn, i) => {
     setTimeout(function() {
       takeTurn(turn, cells, i)
-    }, 3200 * i )
+    }, GAME_SPEED * i )
   })
 }
 
@@ -95,10 +91,11 @@ function takeTurn(turnObject, gridCells) {
     audioElement.load()
   }, 2000)
 
+  // end game on the last turn
   if (turnNum === 24) {
     setTimeout(function() {
       endGame()
-    }, 3200)
+    }, GAME_SPEED)
   }
 }
 
@@ -184,7 +181,7 @@ async function createTrial(n_number) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({game_id: 1 , max_turns: 24, n_number: n_number})
   }
-  let response = await fetch('http://localhost:3000/trials', configObject)
+  let response = await fetch(`${API.baseUrl}/trials`, configObject)
   let trial = await response.json()
   const newTrial = new Trial(trial)
   let turns = loadTurns(newTrial.id)
@@ -192,7 +189,7 @@ async function createTrial(n_number) {
 }
 
 async function loadTurns(trialId) {
-  let response = await fetch(`http://localhost:3000/trials/${trialId}/turns`)
+  let response = await fetch(`${API.baseUrl}/trials/${trialId}/turns`)
   let turns = await response.json()
   let turnObjects = []
   for (let i = 0; i < turns.length; i++) {
@@ -233,11 +230,10 @@ function pressButtonAnimation(button) {
   }, 100)
 }
 
-// attach functino to start game button
+// add function to start game button
 function addStartGameButton() {
   const btn = document.getElementById('start_game')
   btn.addEventListener('click', (e) => {
-    //console.log("Click -> Start Game")
     btn.classList.remove('w3-green')
     document.getElementById('score-display').innerText = ''
     let n = document.getElementById('n_number')
