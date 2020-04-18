@@ -13,43 +13,38 @@ div.active {
 .game {
   padding: 20px;
   max-width: 1400px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 1fr;
-}
-
-body {
-  margin: auto;
+  display: flex;
 }
 
 .wrap {
-  background-color: lightgray;
+  display: flex;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  height: 90vh;
 }
 
 .grid>* {
   box-shadow: inset 0 0 0 1px #fff;
   border: solid black 1px;
+  height: 30vh;
+  width: 30vh;
+  background-color: lightgray;
+
 }
 
 .side-bar {
   display: grid;
-  height: 90vh;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   align-items: center;
   text-align: center;
 }
 
 .side-bar>* {
-  display: grid;
-  align-self: center;
   padding: 45px;
+  height: 30vh;
+  align-self: center;
 }
 
 /* The Modal (background) */
