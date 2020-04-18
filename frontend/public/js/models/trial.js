@@ -32,10 +32,7 @@ class Trial {
     return fetch(`${API.baseUrl}/trials/${this.id}`, configObject)
       .then(resp => resp)
       //.then(obj => obj)
-      .then(function(response) {
-        console.info('fetch()', response);
-        return response;
-      });
+      .then(console.log(`Trial ${this.id} updated`))
   }
 
   calculateScore() {
@@ -52,13 +49,13 @@ class Trial {
         if (turn.user_selected_position === true) {
           totalScore += 1 // log this as a correct user choice
         } else if (turn.user_selected_position === false) {
-          totalScore -= 0.5 // user did not select, and missed the choice
+          //totalScore -= 0.5 // user did not select, and missed the choice
         }
       } else {
         // turn is not a trueMatch,
         if (turn.user_selected_position === true) {
           // but player thought it was :( 0.5 POINTS FROM GRYFFINDOR!!!
-          totalScore -= 0.5
+          //totalScore -= 0.5
         }
       }
 
@@ -68,17 +65,20 @@ class Trial {
         if (turn.user_selected_audio === true) {
           totalScore += 1
         } else if (turn.user_selected_audio === false) {
-          totalScore -= 0.5
+          //totalScore -= 0.5
         }
       } else {
         if (turn.user_selected_position === true) {
-          totalScore -= 0.5
+          //totalScore -= 0.5
         }
       }
 
     });
-    const finalScore = Math.round((totalScore / maxScorePossible) * 100)
-    this.score = finalScore
-    return finalScore
+
+    console.log(`possible correct answers: ${maxScorePossible}`)
+    console.log(`correct answers: ${totalScore}`)
+
+    this.score = Math.round((totalScore / maxScorePossible) * 100)
+    return this.score
   }
 }
