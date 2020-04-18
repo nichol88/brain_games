@@ -145,6 +145,10 @@ function displayScoreModal() {
     startGameButton.innerText = 'Next Level!'
     startGameButton.classList.add('w3-green')
     increaseLevel()
+  } else if (score < 40) {
+    decrementLevel()
+    //startGameButton.disabled = true
+    startGameButton.innerText = 'Try Again'
   } else {
     startGameButton.innerText = 'Try Again'
   }
