@@ -82,6 +82,15 @@ function takeTurn(turnObject, gridCells) {
   // turn actions: display grid element, play sound
   // display grid cell:
   toggleDisplay(gridCells[turnObject.grid_position], turnObject.id)
+
+  // for debugging:
+  // if (turnObject.trueMatch(1, 'grid_position')) {
+  //   console.log('pick me! grid match!')
+  // }
+  // if (turnObject.trueMatch(1, 'asset_id')) {
+  //   console.log('pick me! audio match!')
+  // }
+
   // play audio:
   const audioElement = document.getElementById(`audio-${turnObject.asset_id}`)
   audioElement.play()
@@ -167,7 +176,7 @@ function toggleDisplay(element, turnId) {
   element.classList.add('active')
   element.classList.add(`turn_id_${turnId}`)
   element.setAttribute('id', turnId)
-  console.log('display ' + element.id)
+  // console.log('display ' + element.id)
   setTimeout(function() {
     element.setAttribute('id', '')
     element.classList.remove('active')
