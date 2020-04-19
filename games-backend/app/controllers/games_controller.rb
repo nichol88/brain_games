@@ -11,6 +11,10 @@ class GamesController < ApplicationController
 
   private
 
+  def game_params
+    params.require(:game).permit(:title, :id)
+  end
+
   def set_game
     @game = Game.find(params[:id])
   end
