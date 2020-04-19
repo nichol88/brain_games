@@ -1,5 +1,5 @@
 const API = {
-  baseUrl: 'http://localhost:3000'//'https://brians-brain-games.herokuapp.com/'
+  baseUrl: 'https://brians-brain-games.herokuapp.com/'
 }
 
 const COOKIE = document.cookie
