@@ -14,7 +14,7 @@ class Asset {
 
   addToDOM(containerElement) {
     const a = document.createElement('AUDIO')
-    a.setAttribute('src', this.file_path)
+    a.setAttribute('src', `.${this.file_path}`)
     a.setAttribute('type', 'audio/ogg')
     a.setAttribute('id', `audio-${this.id}`)
     a.preload = 'auto'
