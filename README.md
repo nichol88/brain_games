@@ -13,7 +13,7 @@ rails db:seed
 
 Next, you will need to change the base url to `http://localhost:3000`. This can be found in line 2 of `frontend/public/js/index.js`.
 
-Run `rails server` and you should be up and running!
+Run `rails server` and you should be up and running! View the app by opening index.html at: `frontend > Public > index.html`
 
 
 # Dual n-Back Instructions
